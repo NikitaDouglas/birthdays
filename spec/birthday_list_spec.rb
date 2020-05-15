@@ -20,10 +20,6 @@ describe Birthdays do
   subject(:birthday) { Birthdays.new }
 
   describe "#add_birthday" do
-    it "allows the user to #add_birthday" do
-      expect(birthday).to respond_to(:add_birthday).with(2).arguments
-    end
-
     it "returns 'Birthday stored!'" do
       expect(birthday.add_birthday("Rae","22/12/1993")).to eq "Birthday stored!"
     end
@@ -31,7 +27,6 @@ describe Birthdays do
 
   describe "#store_birthday" do
     it "allows the user to #store_birthday in a hash inside an array" do
-      expect(birthday).to respond_to(:store_birthday).with(2).arguments
       expect(birthday.store_birthday("Rae", "22/12/1993"))
       .to eq ([{:name => "Rae", :date => "22/12/1993"}])
     end
@@ -39,7 +34,6 @@ describe Birthdays do
 
   describe "#show_birthday_list" do
     it "allows the user to see a list of birthdays with #show_birthday_list" do
-      expect(birthday).to respond_to(:show_birthday_list)
       birthday.store_birthday("Rae", "22/12/1993")
       expect { birthday.show_birthday_list }
       .to output("Rae: 22/12/1993\n")
