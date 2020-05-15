@@ -43,6 +43,12 @@ describe Birthdays do
     .to output("Rae: 22/12/1993\nNikita: 07/10/1995\n")
     .to_stdout
   end
+
+  it "puts a statement indicating the name and age of the birthday person" do
+    expect { birthday.check_birthdays }
+    .to output("It's Rae's birthday today; they are 26 years old!\n")
+    .to_stdout
+  end
 end
 
 # # describe "#show_birthday_list" do

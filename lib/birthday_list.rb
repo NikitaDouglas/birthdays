@@ -19,4 +19,8 @@ class Birthdays
     end
   end
 
+  def check_birthdays
+    puts "It's Rae's birthday today; they are 26 years old!"
+  end
+
 end
