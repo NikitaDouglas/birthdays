@@ -19,35 +19,44 @@ require_relative '../lib/birthday_list'
 describe Birthdays do
   subject(:birthday) { Birthdays.new }
 
-  it "allows the user to #add_birthday" do
-    expect(birthday).to respond_to(:add_birthday).with(2).arguments
+  describe "#add_birthday" do
+    it "allows the user to #add_birthday" do
+      expect(birthday).to respond_to(:add_birthday).with(2).arguments
+    end
+
+    it "returns 'Birthday stored!'" do
+      expect(birthday.add_birthday("Rae","22/12/1993")).to eq "Birthday stored!"
+    end
   end
 
-  it "returns 'Birthday stored!'" do
-    expect(birthday.add_birthday("Rae","22/12/1993")).to eq "Birthday stored!"
+  describe "#store_birthday" do
+    it "allows the user to #store_birthday in a hash inside an array" do
+      expect(birthday).to respond_to(:store_birthday).with(2).arguments
+      expect(birthday.store_birthday("Rae", "22/12/1993"))
+      .to eq ([{:name => "Rae", :date => "22/12/1993"}])
+    end
   end
 
-  it "allows the user to #store_birthday in a hash inside an array" do
-    expect(birthday).to respond_to(:store_birthday).with(2).arguments
-    expect(birthday.store_birthday("Rae", "22/12/1993")).to eq ([{:name => "Rae", :date => "22/12/1993"}])
+  describe "#show_birthday_list" do
+    it "allows the user to see a list of birthdays with #show_birthday_list" do
+      expect(birthday).to respond_to(:show_birthday_list)
+      birthday.store_birthday("Rae", "22/12/1993")
+      expect { birthday.show_birthday_list }
+      .to output("Rae: 22/12/1993\n")
+      .to_stdout
+      birthday.store_birthday("Nikita", "07/10/1995")
+      expect { birthday.show_birthday_list }
+      .to output("Rae: 22/12/1993\nNikita: 07/10/1995\n")
+      .to_stdout
+    end
   end
 
-  it "allows the user to see a list of birthdays with #show_birthday_list" do
-    expect(birthday).to respond_to(:show_birthday_list)
-    birthday.store_birthday("Rae", "22/12/1993")
-    expect { birthday.show_birthday_list }
-    .to output("Rae: 22/12/1993\n")
-    .to_stdout
-    birthday.store_birthday("Nikita", "07/10/1995")
-    expect { birthday.show_birthday_list }
-    .to output("Rae: 22/12/1993\nNikita: 07/10/1995\n")
-    .to_stdout
-  end
-
-  it "puts a statement indicating the name and age of the birthday person" do
-    expect { birthday.check_birthdays }
-    .to output("It's Rae's birthday today; they are 26 years old!\n")
-    .to_stdout
+  describe "#check_birthdays" do
+    it "puts a statement indicating the name and age of the birthday person" do
+      expect { birthday.check_birthdays }
+      .to output("It's Rae's birthday today; they are 26 years old!\n")
+      .to_stdout
+    end
   end
 end
 
